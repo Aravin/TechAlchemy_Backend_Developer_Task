@@ -12,13 +12,17 @@ Create a function to read 10 gigabytes of data and sort it. (Pseudo code and log
 
 ## Solution
 
-- We can solve this problem using Bit Vector.
-- It can be solved using 2 passes.
-- Since we have only 1GB of RAM, we can divide the integer into block of smaller size.
-- Example 0-999, 1000-2000 and so on.
-- For each iteration, find the element within (0-999, 1000-2000) the current block.
-- If the finding in each iteration is lesser than the block then we can assume the integer is missing.
-- In the second pass, we have to find for missing range using Bit Vector.
+- We can solve this problem using 2 passes.
+- In first Pass
+  - Possible positive integer values are 2147483647 for 32 bit integer.
+  - We have 1GB of RAM and 10GB of Data
+  - So, we can divide the integer into block of smaller size. (10 block)
+  - Example 0-1GB, 1-2GB and so on.
+  - Sort the each block and store it to the File.
+- In the second pass
+  - we have to find for missing range using Bit Vector.
+  - Bit Vector is an array of boolean. Each represent 32 boolean values
+  - Since we have only 1GB of RAM
 
 ## Block Size
 
