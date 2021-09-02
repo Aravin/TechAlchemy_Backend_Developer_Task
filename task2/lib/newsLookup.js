@@ -1,5 +1,6 @@
+require('dotenv').config();
 const { httpGET } = require('./../helpers/http');
-const newsEndpoint = `https://newsapi.org/v2/top-headlines?country=IN&apiKey=5816f0633bb447699d1046a0b72b17bf&q=`;
+const newsEndpoint = `https://newsapi.org/v2/top-headlines?country=IN&apiKey=${process.env.NEWS_API_KEY}&q=`;
 
 exports.newsLookup = async function newsLookup(req, res) {
 

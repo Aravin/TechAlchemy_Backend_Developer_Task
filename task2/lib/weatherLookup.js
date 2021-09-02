@@ -1,5 +1,6 @@
+require('dotenv').config();
 const { httpGET } = require('./../helpers/http');
-const weatherEndpoint = `https://api.openweathermap.org/data/2.5/forecast?APPID=a83af72ead99ad301ef1d96dc1a8d1ad&cnt=5&q=`;
+const weatherEndpoint = `https://api.openweathermap.org/data/2.5/forecast?APPID=${process.env.WEATHER_API_KEY}&cnt=5&q=`;
 
 exports.weatherLookup = async function weatherLookup(req, res) {
 
