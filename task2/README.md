@@ -21,3 +21,7 @@ More details refer TA_BackendDeveloperTask-190521.pdf in root folder.
 ### Step to start the service
 
 > node server.js
+
+### Swagger Spec Document
+
+> https://documenter.getpostman.com/view/5358526/U16ewTrJ

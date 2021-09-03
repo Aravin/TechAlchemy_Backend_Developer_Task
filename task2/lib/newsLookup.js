@@ -8,8 +8,6 @@ exports.newsLookup = async function newsLookup(req, res) {
 
     let resp = await httpGET(newsEndpoint + search);
 
-    console.log(resp);
-
     if (!resp[0]) {
         return res.status(400).send(resp[1]);
     } else {
