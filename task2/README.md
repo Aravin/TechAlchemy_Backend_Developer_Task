@@ -13,3 +13,11 @@ you want
 For registration we need user’s email, password and name.
 
 More details refer TA_BackendDeveloperTask-190521.pdf in root folder.
+
+### Step to run Unit Test
+
+> npx jest
+
+### Step to start the service
+
+> node server.js

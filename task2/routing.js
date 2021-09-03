@@ -2,35 +2,30 @@ const express = require('express');
 const router = express.Router();
 const { weatherLookup } = require('./lib/weatherLookup');
 const { newsLookup } = require('./lib/newsLookup');
-const { login, register, session, logout } = require('./helpers/supabase');
+const { login, register } = require('./helpers/supabase');
 const { auth } = require('./middlewares/jwt');
 
 router.get('/health', async (req, res) => {
-    await session();
     res.send('Service is up and running...')
 });
 
 router.post('/login', async (req, res) => {
+
+    if (!req.body.email || !req.body.pass) return res.sendStatus(400);
+
     const loginResult = await login(req.body.email, req.body.pass);
 
     if (!loginResult[0]) {
-        res.status(404).send({error: loginResult[1]});
+        return res.status(404).send({error: loginResult[1]});
     } else {
-        res.send({token: loginResult[1]});
+        return res.send({token: loginResult[1]});
     }
 });
 
 router.post('/register', async (req, res) => {
-    const loginResult = await register(req.body.email, req.body.pass);
 
-    if (!loginResult[0]) {
-        res.status(404).send({error: loginResult[1]});
-    } else {
-        res.send({token: loginResult[1]});
-    }
-});
+    if (!req.body.email || !req.body.pass) return res.sendStatus(400);
 
-router.post('/register', async (req, res) => {
     const loginResult = await register(req.body.email, req.body.pass);
 
     if (!loginResult[0]) {
@@ -41,7 +36,8 @@ router.post('/register', async (req, res) => {
 });
 
 router.post('/logout', async (req, res) => {
-    const logOut = await logout(req.body.token);
+
+    if (!req.body.token) return res.sendStatus(400);
 
     res.send({status: 'Success'});
 });

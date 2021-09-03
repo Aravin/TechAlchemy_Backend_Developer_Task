@@ -4,16 +4,14 @@ const newsEndpoint = `https://newsapi.org/v2/top-headlines?country=IN&apiKey=${p
 
 exports.newsLookup = async function newsLookup(req, res) {
 
-    let search = '';
-
-    if (req.query.search) {
-        search = req.query.search;
-    }
+    let search = req.query?.search || '';
 
     let resp = await httpGET(newsEndpoint + search);
 
+    console.log(resp);
+
     if (!resp[0]) {
-        res.status(400).send(resp[1]);
+        return res.status(400).send(resp[1]);
     } else {
         return res.send(parseNewsResult(resp[1].articles));
     }

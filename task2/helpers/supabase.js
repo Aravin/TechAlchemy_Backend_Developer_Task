@@ -5,47 +5,45 @@ require('dotenv').config();
 const supabase = sb.createClient(process.env.SB_URL, process.env.SB_KEY);
 
 module.exports.register = async function register(email, password) {
+
+    if (!email) return [false, 'Email Address is Required'];
+
+    if (!password) return [false, 'Password is Required'];
+
     const { session, error } = await supabase.auth.signUp({
         email,
         password,
     })
 
-    if (error) {
-        return [false, error.message];
-    }
+    if (error) return [false, error.message];
 
     return [true, session.access_token]; // it also supports refresh token.
 }
 
 module.exports.login =  async function login(email, password) {
+
+    if (!email) return [false, 'Email Address is Required'];
+
+    if (!password) return [false, 'Password is Required'];
+
     const { session, error } = await supabase.auth.signIn({
         email,
         password,
     })
 
-    if (error) {
-        return [false, error.message];
-    }
+    if (error) return [false, error.message];
 
-    return [true, session.access_token]; 
+    return [true, session?.access_token]; 
 }
 
 module.exports.logout =  async function logout(token) {
-    const { error  } = await supabase.auth.api.signOut(token);
 
-    if (error) {
-        return [false, error.message];
-    }
+    if (!token) return [false, 'Token is Required'];
+
+    const { error } = await supabase.auth.api.signOut(token);
+
+    if (error) return [false, error.message];
 
     return [true, 'Success']; 
 }
 
-module.exports.session = async function session() {
-    const { user, error  } = await supabase.auth.api.getUserByCookie()
-
-    if (error) {
-        return [false, error.message];
-    }
-
-    return [true, user]; 
-}

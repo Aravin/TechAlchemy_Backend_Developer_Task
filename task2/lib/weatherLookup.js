@@ -4,11 +4,7 @@ const weatherEndpoint = `https://api.openweathermap.org/data/2.5/forecast?APPID=
 
 exports.weatherLookup = async function weatherLookup(req, res) {
 
-    let location = 'chennai,in';
-
-    if (req.query.location) {
-        location = req.query.location;
-    }
+    let location = req.query.location || 'Chennai,IN';
 
     let resp = await httpGET(weatherEndpoint + location);
 
@@ -17,7 +13,6 @@ exports.weatherLookup = async function weatherLookup(req, res) {
     } else {
         return res.send(parseWeatherResult(resp[1].list, location.split(',')[0]));
     }
-
 }
 
 function parseWeatherResult(weatherList, location) {

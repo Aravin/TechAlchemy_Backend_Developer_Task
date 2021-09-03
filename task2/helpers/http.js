@@ -5,15 +5,14 @@ exports.httpGET = async function httpGET(url) {
     let resp = [];
     
     await axios.get(url)
-        .then(function (response) {
+        .then((response) => {
             // handle success
             resp = [true, response?.data];
         })
-        .catch(function (error) {
+        .catch((error) => {
             // handle error
             resp = [false, error.message]
         });
-
 
     return resp;
 }
