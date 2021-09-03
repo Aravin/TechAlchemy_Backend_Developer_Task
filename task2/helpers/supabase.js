@@ -20,7 +20,7 @@ module.exports.register = async function register(email, password) {
     return [true, session.access_token]; // it also supports refresh token.
 }
 
-module.exports.login =  async function login(email, password) {
+module.exports.login = async function login(email, password) {
 
     if (!email) return [false, 'Email Address is Required'];
 
@@ -33,17 +33,37 @@ module.exports.login =  async function login(email, password) {
 
     if (error) return [false, error.message];
 
-    return [true, session?.access_token]; 
+    return [true, session?.access_token];
 }
 
-module.exports.logout =  async function logout(token) {
+// temp workaround
+// storing the invalidated token to db
+module.exports.logout = async function logout(token) {
 
     if (!token) return [false, 'Token is Required'];
 
-    const { error } = await supabase.auth.api.signOut(token);
+    const { error } = await supabase
+        .from('invalidated_tokens')
+        .upsert({token: token})
 
     if (error) return [false, error.message];
 
-    return [true, 'Success']; 
+    return [true, 'Success'];
+}
+
+module.exports.expiredTokens = async function expiredTokens(token) {
+
+    if (!token) return [false, 'Token is Required'];
+
+    const { data, error } = await supabase
+        .from('invalidated_tokens')
+        .select()
+        .eq('token', token);
+
+    if (error) return [false, error.message];
+
+    if (data.length) return [false, 'Token Expired'];
+
+    return [true, 'Success'];
 }
 

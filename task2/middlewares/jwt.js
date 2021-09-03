@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const sb = require('./../helpers/supabase');
 
 module.exports.auth = function authentication(req, res, next) {
     // get the bearer token
@@ -8,6 +9,8 @@ module.exports.auth = function authentication(req, res, next) {
 
     // return unauthorized in token is not found
     if (!token) return res.sendStatus(401);
+
+    if (sb.expiredTokens(token)) return res.sendStatus(403);
 
     jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
         

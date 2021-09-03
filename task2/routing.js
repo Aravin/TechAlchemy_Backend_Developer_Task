@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { weatherLookup } = require('./lib/weatherLookup');
 const { newsLookup } = require('./lib/newsLookup');
-const { login, register } = require('./helpers/supabase');
+const { login, register, logout } = require('./helpers/supabase');
 const { auth } = require('./middlewares/jwt');
 
 router.get('/health', async (req, res) => {
@@ -39,7 +39,13 @@ router.post('/logout', async (req, res) => {
 
     if (!req.body.token) return res.sendStatus(400);
 
-    res.send({status: 'Success'});
+    const logoutResult = await logout(req.body.token);
+
+    if (!logoutResult[0]) {
+        res.status(404).send({error: logoutResult[1]});
+    } else {
+        res.send({status: logoutResult[1]});
+    }
 });
 
 router.get('/weather', async function (req, res) {
