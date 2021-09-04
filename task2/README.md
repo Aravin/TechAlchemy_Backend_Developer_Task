@@ -25,3 +25,13 @@ More details refer TA_BackendDeveloperTask-190521.pdf in root folder.
 ### Swagger Spec Document
 
 > https://documenter.getpostman.com/view/5358526/U16ewTrJ
+
+### Tech Stacks Used
+
+- Node.js (Runtime)
+- JavaScript (Programming Language)
+- Postgres (Database - for storing Auth Tokens)
+- Supabase Auth (Authentication)
+- Express.js (Framework)
+- Jest (Unit Testing)
+- ESLint (Linting)
