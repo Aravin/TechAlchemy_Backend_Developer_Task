@@ -12,7 +12,7 @@ app.use(cors());
 app.use(cookieParser());
 app.use('/v1', router);
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
     console.log(`Weather and News App listening at http://localhost:${port}`)
