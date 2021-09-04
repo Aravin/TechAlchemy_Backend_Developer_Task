@@ -20,9 +20,7 @@ Create a function to read 10 gigabytes of data and sort it. (Pseudo code and log
   - Example 0-1GB, 1-2GB and so on.
   - Sort the each block and store it to the File.
 - In the second pass
-  - we have to find for missing range using Bit Vector.
-  - Bit Vector is an array of boolean. Each represent 32 boolean values
-  - Since we have only 1GB of RAM
+  - Sort Each Block
 
 ## Block Size
 
@@ -33,3 +31,5 @@ Size of each Array is 4 bytes
 So, we can allocate 1073741824 / 4 => 26,84,35,456 size of Array
 
 We can take 80% of Memory => 21,47,48,364 (per iteration)
+
+## Attached PDF for Flow
