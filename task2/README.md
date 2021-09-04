@@ -26,6 +26,10 @@ More details refer TA_BackendDeveloperTask-190521.pdf in root folder.
 
 > https://documenter.getpostman.com/view/5358526/U16ewTrJ
 
+### Hosted on Cloud (Heroku)
+
+> https://ta-interview.herokuapp.com/v1/health
+
 ### Tech Stacks Used
 
 - Node.js (Runtime)
